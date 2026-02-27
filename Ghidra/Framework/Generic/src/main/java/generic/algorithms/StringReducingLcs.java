@@ -13,14 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ghidra.test.processors.support;
+package generic.algorithms;
 
-import ghidra.program.model.address.Address;
+/**
+ * A reducing LCS that works on Strings.
+ */
+public class StringReducingLcs extends ReducingLcs<String, Character> {
 
-public interface ExecutionListener extends TestLogger {
+	public StringReducingLcs(String x, String y) {
+		super(x, y);
+	}
 
-	public void logWrite(EmulatorTestRunner testRunner, Address address, int size, byte[] values);
+	@Override
+	protected String reduce(String input, int start, int end) {
+		return input.substring(start, end);
+	}
 
-	public void logRead(EmulatorTestRunner testRunner, Address address, int size, byte[] values);
+	@Override
+	protected int lengthOf(String s) {
+		return s.length();
+	}
 
+	@Override
+	protected Character valueOf(String s, int offset) {
+		return s.charAt(offset);
+	}
 }
